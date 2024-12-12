@@ -10,7 +10,7 @@ close all;
 % Path to ROMS grid file
 %griddir = '/home/jonathan/Dokumente/model/files_guangyu/model_file_EPR/input';
 %gridname = 'EPR_grid_coarse.nc';
-appdir = '/home/jonathan/Dokumente/model/roms_project/aurora-0/';
+appdir = '/home/jonathan/Dokumente/model/roms_project/aurora-0-he/';
 %griddir = '/home/jonathan/Dokumente/model/inputs/Gridbuilder';
 %GRD_file = 'grid-M512L512.nc';
 %GRD_file = 'grid-M265L265.nc';
@@ -76,9 +76,9 @@ F(1).Tname = 'bhf_time';
 %F(2).output = sprintf('%s_bwflux_Kellog_120day_1_vent.nc',GRD_file(1:end-3));
 %F(2).Vname = 'bwflux';
 %F(2).Tname = 'bwf_time';
-% F(2).output = sprintf('%s_bpflux_%s.nc',GRD_file(1:end-3),datestr(eruption_date,'yyyymmddTHH'));
-% F(2).Vname = 'dye_01_bflux';
-% F(2).Tname = 'ocean_time';
+F(2).output = sprintf('%s_bpflux_%s.nc',GRD_file(1:end-3),datestr(eruption_date,'yyyymmddTHH'));
+F(2).Vname = 'dye_01_bflux';
+F(2).Tname = 'ocean_time';
 for n = 1:length(F)
     ncname = char(F(n).output);
     Vname  = char(F(n).Vname);
@@ -162,7 +162,7 @@ frc_time = frc_date-eruption_date;
 if compute_heat == 0
     bhflux = zeros(length(lon),length(lat),length(frc_time));
     %bwflux = zeros(length(lon),length(lat),length(frc_time));
-    %bpflux = zeros(length(lon),length(lat),length(frc_time));
+    bpflux = zeros(length(lon),length(lat),length(frc_time));
 else
     % vent field coordinates (north to south: Sasquatch, Salty Dawg, High Rise,
     % Main Endeavour, Mothra
@@ -188,7 +188,7 @@ else
     % construct bottom source variables for individual vent fields
     bhflux = zeros(length(lon),length(lat),length(frc_time));
     %bwflux = zeros(length(lon),length(lat),length(frc_time));
-    %bpflux = zeros(length(lon),length(lat),length(frc_time));
+    bpflux = zeros(length(lon),length(lat),length(frc_time));
     if iscoarse
         ix_vent = zeros(1,length(lon_vent));
         iy_vent = zeros(1,length(lon_vent));
@@ -217,10 +217,11 @@ else
                 bhflux1 = heat1*10^6/cell_area*ones(1,length(frc_time));
                 bhflux1(frc_time<0) = 0;
                 bhflux(is1,js1,:) = bhflux1;
-                % bp_max = 10*heat_vent(ivent)/max(heat_vent);  %bp_max is 10*the heat of one vent? 
-                % bpflux1 = bp_max*ones(1,length(frc_time));  %extend bp_max to time axis
-                % bpflux1(frc_time<0) = 0;    %set bpflux to 0 for time<0
-                % bpflux(is1,js1,:) = bpflux1;    %extend bpflux spatially
+                bp_max = 10*heat_vent(ivent)/max(heat_vent);  %bp_max is 10*the heat of one vent?
+                bp_max = 650;
+                bpflux1 = bp_max*ones(1,length(frc_time));  %extend bp_max to time axis
+                bpflux1(frc_time<0) = 0;    %set bpflux to 0 for time<0
+                bpflux(is1,js1,:) = bpflux1;    %extend bpflux spatially
                 % bw_max = 0*heat_vent(ivent)/max(heat_vent);
                 % bwflux1 = bbpw_max*ones(1,length(frc_time));
                 % bwflux1(frc_time<0) = 0;
@@ -229,7 +230,7 @@ else
         end
     end
     bhflux = -bhflux;
-    %bpflux = -bpflux;
+    bpflux = -bpflux;
     %bwflux = -bwflux;
 end
 
@@ -265,7 +266,7 @@ F(1).field = single(bhflux);
 %clear bhflux
 %F(2).field = single(bwflux);
 % clear bwflux
-%F(2).field = single(bpflux);
+F(2).field = single(bpflux);
 %clear bpflux
 for n = 1:length(F)
     OutFile = fullfile(outdir,char(F(n).output));
