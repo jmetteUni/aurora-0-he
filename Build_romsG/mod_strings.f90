@@ -259,8 +259,8 @@
         character (len=80)  :: my_fc = "/usr/bin/mpif90"
         character (len=512) :: my_fflags = "-frepack-arrays -fallow-argument-mismatch        -g -O0 -fbounds-check -fbacktrace -fcheck=all -finit-real=nan -ffree-form -ffree-line-length-none"
 !
-        character (len=256) :: Adir = "/home/jmette/roms_project/aurora-0/Functionals"
-        character (len=256) :: Hdir = "/home/jmette/roms_project/aurora-0"
+        character (len=256) :: Adir = "/home/jmette/roms_project/aurora-0-he/Functionals"
+        character (len=256) :: Hdir = "/home/jmette/roms_project/aurora-0-he"
         character (len=256) :: Hfile = "aurora-0.h"
         character (len=256) :: Rdir = "/home/jmette/roms"
 !

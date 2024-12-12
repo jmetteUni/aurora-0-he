@@ -133,6 +133,10 @@
      &   'Double precision arithmetic numerical kernel'
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+18)=' DOUBLE_PRECISION,'
+      IF (Master) WRITE (stdout,20) '!GATHER_SENDRECV',                 &
+     &   'Using mpi_gatherv in mp_gather2d/mp_gather3d routines'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+18)=' !GATHER_SENDRECV,'
 !
       IF (Master) WRITE (stdout,20) 'MIX_GEO_TS',                       &
      &   'Mixing of tracers along geopotential surfaces'
@@ -153,6 +157,11 @@
      &   'MPI distributed-memory configuration'
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+4)=' MPI,'
+!
+      IF (Master) WRITE (stdout,20) '!MULTI_THREAD',                    &
+     &   'Using mpi_init with single thread level processing'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+18)=' !MULTIPLE_THREAD,'
 !
       IF (Master) WRITE (stdout,20) 'NONLINEAR',                        &
      &   'Nonlinear Model'
@@ -193,6 +202,10 @@
      &   'Using salinity'
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+10)=' SALINITY,'
+      IF (Master) WRITE (stdout,20) '!SCATTER_BCAST',                   &
+     &   'Using mpi_scatterv in mp_scatter2d/mp_scatter3d routines'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+16)=' !SCATTER_BCAST,'
 !
       IF (Master) WRITE (stdout,20) 'STEP2D_LF_AM3',                    &
      &   'Predictor/Corrector LF-AM3 stepping scheme'

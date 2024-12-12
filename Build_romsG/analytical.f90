@@ -39,7 +39,7 @@
 ! Local variable declarations.
 !
       character (len=*), parameter :: MyFile =                          &
-     &  "/home/jmette/roms_project/aurora-0/Functionals/ana_btflux.h"
+     &  "/home/jmette/roms_project/aurora-0-he/Functionals/ana_btflux.h"
 !
       integer :: IminS, ImaxS, JminS, JmaxS
       integer :: LBi, UBi, LBj, UBj, LBij, UBij
@@ -219,7 +219,7 @@
 !  Local variable declarations.
 !
       character (len=*), parameter :: MyFile =                          &
-     &  "/home/jmette/roms_project/aurora-0/Functionals/ana_smflux.h"
+     &  "/home/jmette/roms_project/aurora-0-he/Functionals/ana_smflux.h"
 !
       integer :: IminS, ImaxS, JminS, JmaxS
       integer :: LBi, UBi, LBj, UBj, LBij, UBij
@@ -416,7 +416,7 @@
 !  Local variable declarations.
 !
       character (len=*), parameter :: MyFile =                          &
-     &  "/home/jmette/roms_project/aurora-0/Functionals/ana_stflux.h"
+     &  "/home/jmette/roms_project/aurora-0-he/Functionals/ana_stflux.h"
 !
       integer :: IminS, ImaxS, JminS, JmaxS
       integer :: LBi, UBi, LBj, UBj, LBij, UBij
@@ -615,7 +615,7 @@
 !  Local variable declarations.
 !
       character (len=*), parameter :: MyFile =                          &
-     &  "/home/jmette/roms_project/aurora-0/Functionals/ana_vmix.h"
+     &  "/home/jmette/roms_project/aurora-0-he/Functionals/ana_vmix.h"
 !
       integer :: IminS, ImaxS, JminS, JmaxS
       integer :: LBi, UBi, LBj, UBj, LBij, UBij

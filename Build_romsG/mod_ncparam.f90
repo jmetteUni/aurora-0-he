@@ -1186,7 +1186,7 @@
 !  assigned in the 'makefile' to the CPPFLAGS macro.
 !
       git_url="git@github.com:jmetteUni/roms.git"
-      git_rev="3eaf9c56ee802ef87984b97a61e8f55eed3cce01"
+      git_rev="db5fba403936b0d162cc2e7092edf8f51120c637"
 !
       svn_url='https://myroms.org/svn/trunk'
       svn_rev=' '
@@ -2288,6 +2288,38 @@
      &        TRIM(ADJUSTL(Vname(1,idTvar(i))))
         CALL StandardName (Vname(6,varid), Vname(2,idTvar(i)),          &
      &                     prefix='sea_surface_',                       &
+     &                     suffix='_flux')
+      END DO
+!
+!-----------------------------------------------------------------------
+!  Set passive tracers bottom flux metadata. The variable name is the
+!  same as the basic tracer but with the _bflux suffix. Added based on
+!  Xu 2023
+!-----------------------------------------------------------------------
+!
+      DO i=NAT+1,MT
+        varid=varid+1
+        IF (varid.gt.MV) THEN
+          WRITE (stdout,10) MV, varid
+          STOP
+        END IF
+        idTbot(i)=varid
+        DO ng=1,Ngrids
+          Fscale(varid,ng)=1.0_r8
+          Iinfo(1,varid,ng)=r2dvar
+        END DO
+        WRITE (Vname(1,varid),'(a,a)')                                  &
+     &        TRIM(ADJUSTL(Vname(1,idTvar(i)))), '_bflux'
+        WRITE (Vname(2,varid),'(a,a)')                                  &
+     &        TRIM(ADJUSTL(Vname(2,idTvar(i)))), ', bottom flux'
+        WRITE (Vname(3,varid),'(a,1x,a)')                               &
+     &        TRIM(ADJUSTL(Vname(3,idTvar(i)))), 'kg m-3 meter second-1'
+        WRITE (Vname(4,varid),'(3a)') 'surface ',                       &
+     &        TRIM(ADJUSTL(Vname(2,idTvar(i)))), ' flux'
+        WRITE (Vname(5,varid),'(a)')                                    &
+     &        TRIM(ADJUSTL(Vname(1,idTvar(i))))
+        CALL StandardName (Vname(6,varid), Vname(2,idTvar(i)),          &
+     &                     prefix='seafloor_',                          &
      &                     suffix='_flux')
       END DO
 !
