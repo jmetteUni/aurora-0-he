@@ -283,7 +283,7 @@ ad_VolCons(north) ==  F                            ! northern boundary
         NQCK == 0
      NDEFQCK == 0
       NTSAVG == 1
-        NAVG == 43200
+        NAVG == 10
      NDEFAVG == 0
       NTSDIA == 1
         NDIA == 43200
