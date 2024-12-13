@@ -48,8 +48,8 @@
 #define ANA_SSFLUX
 #define ANA_BSFLUX
 
-#undef T_PASSIVE
-#define ANA_PASSIVE
+#define T_PASSIVE
+#undef ANA_PASSIVE
 #define ANA_SPFLUX
 
 #define RADIATION_2D

@@ -1109,7 +1109,7 @@ PIO_I2C_Preq = 65                 ! Maximum pending I2C requests
     NBCFILES == 1                          ! number of boundary files
 
 !      BRYNAME == roms_bry.nc
-      BRYNAME == ./Data/grid-M256L256bry_nemo_20220726T00_20230701T00.nc
+      BRYNAME == ./Data/grid-M256L256_bry_nemo_20220726T00_20230701T00.nc
 
 ! Input climatology file names. The USER has the option to separate the
 ! climatology variables into individual NetCDF files (NCLMFILES > 1),
