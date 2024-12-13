@@ -24,7 +24,7 @@ datee = datenum(2023,07,01,0,0,0);
 frc_date = dates:3:datee;
 eruption_date = dates;
 heat_vent = 130; % Aurora, arbitrary   %from poster:20MW %from Wegener2023: 130MW
-
+dye_amount = 100000000;   %delta3He = ~650%
 
 compute_heat = 1; % toggle for computing heat flux
 isplot = 0; % toggle for plotting bottom heat flux
@@ -217,8 +217,8 @@ else
                 bhflux1 = heat1*10^6/cell_area*ones(1,length(frc_time));
                 bhflux1(frc_time<0) = 0;
                 bhflux(is1,js1,:) = bhflux1;
-                bp_max = 10*heat_vent(ivent)/max(heat_vent);  %bp_max is 10*the heat of one vent?
-                bp_max = 650;
+                %bp_max = 10*heat_vent(ivent)/max(heat_vent);  %bp_max is 10*the heat of one vent?
+                bp_max = dye_amount;
                 bpflux1 = bp_max*ones(1,length(frc_time));  %extend bp_max to time axis
                 bpflux1(frc_time<0) = 0;    %set bpflux to 0 for time<0
                 bpflux(is1,js1,:) = bpflux1;    %extend bpflux spatially

@@ -17,6 +17,7 @@ close all;
 %addpath('../roms_matlab/boundary');
 %addpath('../roms_matlab/netcdf');
 %addpath('../roms_matlab/mexcdf/mexnc');
+addpath('../../../roms_matlab');
 
 app_dir = '/home/jonathan/Dokumente/model/roms_project/aurora-0/';
 %GRD_file = 'grid-M512L512.nc';
