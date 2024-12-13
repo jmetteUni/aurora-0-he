@@ -48,6 +48,10 @@
 #define ANA_SSFLUX
 #define ANA_BSFLUX
 
+#undef T_PASSIVE
+#define ANA_PASSIVE
+#define ANA_SPFLUX
+
 #define RADIATION_2D
 
 #define TIDE_GENERATING_FORCES

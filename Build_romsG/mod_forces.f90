@@ -190,7 +190,6 @@
           real(r8), pointer :: bustr(:,:)
           real(r8), pointer :: bvstr(:,:)
           real(r8), pointer :: stflux(:,:,:)
-          real(r8), pointer :: stfluxG(:,:,:,:)
           real(r8), pointer :: stflx(:,:,:)
           real(r8), pointer :: btflux(:,:,:)
           real(r8), pointer :: btfluxG(:,:,:,:)
@@ -242,8 +241,6 @@
       Dmem(ng)=Dmem(ng)+size2d
       allocate ( FORCES(ng) % stflux(LBi:UBi,LBj:UBj,NT(ng)) )
       Dmem(ng)=Dmem(ng)+REAL(NT(ng),r8)*size2d
-      allocate ( FORCES(ng) % stfluxG(LBi:UBi,LBj:UBj,2,NT(ng)) )
-      Dmem(ng)=Dmem(ng)+2.0_r8*REAL(NT(ng),r8)*size2d
       allocate ( FORCES(ng) % stflx(LBi:UBi,LBj:UBj,NT(ng)) )
       Dmem(ng)=Dmem(ng)+REAL(NT(ng),r8)*size2d
       allocate ( FORCES(ng) % btflux(LBi:UBi,LBj:UBj,NT(ng)) )
@@ -393,8 +390,6 @@
             FORCES(ng) % bvstr(i,j) = IniVal
             DO itrc=1,NT(ng)
               FORCES(ng) % stflux(i,j,itrc) = IniVal
-              FORCES(ng) % stfluxG(i,j,1,itrc) = IniVal
-              FORCES(ng) % stfluxG(i,j,2,itrc) = IniVal
               FORCES(ng) % stflx(i,j,itrc) = IniVal
               FORCES(ng) % btflux(i,j,itrc) = IniVal
               FORCES(ng) % btfluxG(i,j,1,itrc) = IniVal
