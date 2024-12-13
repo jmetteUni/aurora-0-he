@@ -13,8 +13,8 @@ close all;
 appdir = '/home/jonathan/Dokumente/model/roms_project/aurora-0-he/';
 %griddir = '/home/jonathan/Dokumente/model/inputs/Gridbuilder';
 %GRD_file = 'grid-M512L512.nc';
-%GRD_file = 'grid-M265L265.nc';
-GRD_file = 'grid-M128L128.nc';
+GRD_file = 'grid-M256L256.nc';
+%GRD_file = 'grid-M128L128.nc';
 
 grid = fullfile(appdir,'/Data',GRD_file);
 % Base date for ROMS forcing files
