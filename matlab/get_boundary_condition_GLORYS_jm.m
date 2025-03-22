@@ -19,10 +19,10 @@ close all;
 %addpath('../roms_matlab/mexcdf/mexnc');
 addpath('../../../roms_matlab');
 
-app_dir = '/home/jonathan/Dokumente/model/roms_project/aurora-0/';
+app_dir = '/home/jonathan/Dokumente/model/roms_project/aurora-0-he/';
 %GRD_file = 'grid-M512L512.nc';
-GRD_file = 'grid-M265L265.nc';
-GRD_file = 'grid-M128L128.nc';
+GRD_file = 'grid-M256L256.nc';
+%GRD_file = 'grid-M128L128.nc';
 
 GRDname = fullfile(app_dir,'/Data',GRD_file);
 NEMO_dir = 'Dokumente/model/inputs/boundary_conditions';
@@ -54,7 +54,7 @@ WRITE  = 1;                      % logical switch to write out data
 report = 1;                      % report vertical grid information
 
 % Get number of grid points
-Sinp.N = 40;                    % number of vertical levels at RHO-points
+Sinp.N = 30;                    % number of vertical levels at RHO-points
 Sinp.Vtransform = 2;
 Sinp.Vstretching = 4;
 Sinp.theta_s=0;

@@ -23,8 +23,8 @@ dates = datenum(2022,07,26,0,0,0);
 datee = datenum(2023,07,01,0,0,0);
 frc_date = dates:3:datee;
 eruption_date = dates;
-heat_vent = 130; % Aurora, arbitrary   %from poster:20MW %from Wegener2023: 130MW
-dye_amount = 100000000;   %delta3He = ~650%
+heat_vent = 180; % Aurora, arbitrary   %from poster:20MW %from Wegener2023: 24MW %dE/dt z_max: 180MW
+dye_amount = 650;   %delta3He = ~650%
 
 compute_heat = 1; % toggle for computing heat flux
 isplot = 0; % toggle for plotting bottom heat flux
