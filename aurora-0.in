@@ -93,7 +93,7 @@ GridsInLayer =  1
 
           Lm == 254            ! Number of I-direction INTERIOR RHO-points
           Mm == 254            ! Number of J-direction INTERIOR RHO-points
-           N == 40            ! Number of vertical levels
+           N == 30             ! Number of vertical levels
 
         Nbed =  0             ! Number of sediment bed layers
 
@@ -240,8 +240,8 @@ ad_VolCons(north) ==  F                            ! northern boundary
 
 ! Time-Stepping parameters.
 
-      NTIMES == 1339200				!30sec×60min×24h×31d
-          DT == 2.0d0			!2sec	
+      NTIMES == 669600				!15sec×60min×24h×31d
+          DT == 4.0d0     			!2sec	
      NDTFAST == 30 
 
 ! Number of timesteps for computing observation impacts during the
@@ -283,10 +283,10 @@ ad_VolCons(north) ==  F                            ! northern boundary
         NQCK == 0
      NDEFQCK == 0
       NTSAVG == 1
-        NAVG == 10
+        NAVG == 900
      NDEFAVG == 0
       NTSDIA == 1
-        NDIA == 43200
+        NDIA == 1800
      NDEFDIA == 0
 
 ! Output tangent linear and adjoint models parameters.
