@@ -1,6 +1,6 @@
 # Aurora Hydrothermal Venting Application<br> for the Regional Ocean Modelling System (ROMS)
 
-## Description
+# Description
 This application is used for the simulation of the Aurora hydrothermal vent system in the Arctic Ocean. It is intended to be used with a modified version of the Regional Ocean Modelling System (ROMS) (documented [here](https://github.com/jmetteUni/roms/tree/bottom-tracer) and [OpenMPI](https://www.open-mpi.org/).
 
 The application uses a 256x256 horizontal grid with 30 vertical layers. Initial and boundary conditions are inferred from the ERA5 Interim reanalysis product. Surface fluxes are set to zero. Input of heat flux and a passive tracer, to simulate the hydrothermal vent is prescribed with forcing files. Tides are simulated based on tidal constituents from the Arctic Ocean Tidal Inverse Model. The simulation is run with a timestep of 4 sec for one month.
@@ -9,11 +9,10 @@ It is heavily inspired and uses a similar approach as the setup in [Xu and Germa
 
 For general information on the ROMS model check the official [wiki](https://www.myroms.org/wiki/Documentation_Portal) (I linked some important articles directly below) and the [forum](https://www.myroms.org/forum/), but note that the wiki is outdated in some places. Most of the files have also some documentation as comments inside.
 
-# Preparing the input files
-
-
 # How to run the model
 This is  short tutorial on how to run this application with the ROMS model. For more in-depth documentation see the official ROMS documents. The application in it's structure follows roughly the test case [UPWELLING](https://www.myroms.org/wiki/UPWELLING_CASE). The test cases can be obtained [here](https://github.com/myroms/roms_test). It is recommended that you test your model with the UPWELLING test case first.
+
+## Preparing the input files
 
 ## Prerequisites ([wiki](https://www.myroms.org/wiki/Getting_Started))
 Software you will need to have installed:<br>
@@ -170,8 +169,18 @@ This sets the NetCDF files for the grid, the initial condiitons, the boundary co
 
 This sets the forcing files for the bottom flux. It is seperated for the heatflux (bhflux) and the passive tracer flux (bpflux), so `NFFILES == 2`.
 
-## Adjusting the setup
 ## Running
+After installing the prerequisites and setting everything up as described above, you start by building the excutable. Navigate into the application directory, where the build script _build_roms.sh_ lives, and run it with
+
+    ./build_roms.sh
+
+If the build was succesfull you will find a ROMS executable in the application directory. In this case it will be named _romsG_ but for example if you are building withouth MPI (or for other cases) it can be named slightly different. Then you can run the model with
+
+    mpirun -np N romsG aurora-1.in
+
+using MPI, where `N`is the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file _aurora-0.h_ is not called directly but was already used in the build process.
+
+
 ## Output
 
 
