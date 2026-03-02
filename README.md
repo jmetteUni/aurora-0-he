@@ -43,16 +43,16 @@ There are many different ways how to structure your source code and your applica
 
 In the following part, the different subdirectories and files which make up the application are briefly explained:<br>
 ### _Functionals_ ([wiki](https://www.myroms.org/wiki/Functionals))
-This subdirectory contains header (.h) files. These are copied from the source code under `ROMS/Functionals/` and are therefore mostly similar. But some are modified specifically for this setup such as _ana_srflux.h_ for example, which specifies the analytical (not prescribed from forcing files) surface forcing. In this file surface forcings are set to 0 for this application to represent a simplified ice cover. The directory also contains header files which are not used by the application (because there function is replaced by forcing files or they just not neccesary) but for simplicity just all files from the source code are copied and they don't hurt. In case you update the source code, it is necessary to check if you also need to update header files in your application.
+This subdirectory contains header (.h) files. These are copied from the source code under `ROMS/Functionals/` and are therefore mostly similar. But some are modified specifically for this setup such as `ana_srflux.h` for example, which specifies the analytical (not prescribed from forcing files) surface forcing. In this file surface forcings are set to 0 for this application to represent a simplified ice cover. The directory also contains header files which are not used by the application (because there function is replaced by forcing files or they just not neccesary) but for simplicity just all files from the source code are copied and they don't hurt. In case you update the source code, it is necessary to check if you also need to update header files in your application.
 
 ### _matlab_
-This subdirectory contains matlab scripts which are used to create the input forcing files. The forcing files are NetCDF files which prescribe certain conditions for the model instead of conditions from analytical functions (the header files). They are used for example to simulate realistic boundaries (That is why the UPWELLING test case used no NetCDF files) and therefore can get quite large in terms of disk space. This application uses four different scripts and one _.mat_-file. One additional script is the example of how the ROMS MATLAB tools need to be modified for preparing the input files.<br>
-- _grid-M256L256.mat_ is a _MATLAB_ file representing the grid of the model domain.<br>
-- _get_bottom_forcing_jm.m_ to create the forcing file for the input of the passive bottom tracer.<br>
-- _get_initial_condition_from_GLORYS_jm.m_ to interpolate ERA5 data to the ROMS grid for the initial conditions.<br>
-- _get_boundary_condition_GLORYS_jm.m_ to interpolate ERA5 data to the ROMS grid for the boundary conditions.<br>
-- _otps2frc_wrapper.m_ to create the forcing file for the tidal motion from the OTPS tidal model.<br>
-- _roms_metadata.m_ which should replace the same file in the _MATLAB_ tools in `/roms_matlab/netcdf/_roms_metadata.m`.
+This subdirectory contains matlab scripts which are used to create the input forcing files. The forcing files are NetCDF files which prescribe certain conditions for the model instead of conditions from analytical functions (the header files). They are used for example to simulate realistic boundaries (That is why the UPWELLING test case used no NetCDF files) and therefore can get quite large in terms of disk space. This application uses four different scripts and one `.mat`-file. One additional script is the example of how the ROMS MATLAB tools need to be modified for preparing the input files.<br>
+- `grid-M256L256.mat` is a _MATLAB_ file representing the grid of the model domain.<br>
+- `get_bottom_forcing_jm.m` to create the forcing file for the input of the passive bottom tracer.<br>
+- `get_initial_condition_from_GLORYS_jm.m` to interpolate ERA5 data to the ROMS grid for the initial conditions.<br>
+- `get_boundary_condition_GLORYS_jm.m` to interpolate ERA5 data to the ROMS grid for the boundary conditions.<br>
+- `otps2frc_wrapper.m` to create the forcing file for the tidal motion from the OTPS tidal model.<br>
+- `roms_metadata.m_` which should replace the same file in the _MATLAB_ tools in `/roms_matlab/netcdf/_roms_metadata.m`.
 ### _Data_ (not present in the repository)
 This subdirectory should contain all the input and forcing files, so the grid file, etc. It is not part of the repository due to size limitations. For this application you should have the input files mentioned above.
 
@@ -60,7 +60,7 @@ This subdirectory should contain all the input and forcing files, so the grid fi
 This config file contains information about all the different variable metadata for the input and output. This is in principal the same file as in the ROMS source code in `/roms/ROMS/Externals/varinfo.yaml`. Although when the source code gets updated it is recommended to also copy the new version of the file to the application as it could change.
 
 ### _build_roms.sh_ ([wiki](https://www.myroms.org/wiki/build_roms))
-This script is used for building the ROMS executable. After running you should find binary called _romsG_ (or _romsS_ when running in serial without MPI) in your application directory. The script depends on _aurora-0.h_ and the header files in `/Functionals/` so if either of these are changed (or if you updated the source code) you should re-build the executable. Important sections here are:
+This script is used for building the ROMS executable. After running you should find binary called `romsG` (or `romsS` when running in serial without MPI) in your application directory. The script depends on `aurora-0.h` and the header files in `/Functionals/` so if either of these are changed (or if you updated the source code) you should re-build the executable. Important sections here are:
 
     export     MY_PROJECT_DIR=${PWD}
 
@@ -180,7 +180,7 @@ This sets the NetCDF files for the grid, the initial condiitons, the boundary co
 This sets the forcing files for the bottom flux. It is seperated for the heatflux (bhflux) and the passive tracer flux (bpflux), so `NFFILES == 2`.
 
 ## Running
-After installing the prerequisites and setting everything up as described above, you start by building the excutable. Navigate into the application directory, where the build script _build_roms.sh_ lives, and run it with
+After installing the prerequisites and setting everything up as described above, you start by building the excutable. Navigate into the application directory, where the build script `build_roms.sh` lives, and run it with
 
     ./build_roms.sh
 
@@ -188,11 +188,11 @@ If the build was succesfull you will find a ROMS executable in the application d
 
     mpirun -np N romsG aurora-1.in
 
-using MPI, where `N`is the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file _aurora-0.h_ is not called directly but was already used in the build process.
+using MPI, where `N`is the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file `aurora-0.h` is not called directly but was already used in the build process.
 
 ## Output
 
-The model produces several output files. The most relevant one is the _roms_avg.nc_ which holds averaged values of all relevant physical quantities. For an inspection if it contains the espected data I would recommend to have ncview installed on the computing host, so you can check quickly if everything worked. For more detailed diagnostics the _roms_dia.nc_ file contains more data and more model parameters. The _roms_rst.nc_ file contains a full state of the model, and can be used to restart a model run from this point.
+The model produces several output files. The most relevant one is the `roms_avg.nc` which holds averaged values of all relevant physical quantities. For an inspection if it contains the espected data I would recommend to have ncview installed on the computing host, so you can check quickly if everything worked. For more detailed diagnostics the `roms_dia.nc` file contains more data and more model parameters. The `roms_rst.nc` file contains a full state of the model, and can be used to restart a model run from this point.
 
 While running the model prints a lot of useful information to the console (see [wiki](https://www.myroms.org/wiki/Standard_Output)), especially for debugging, if a run does not work as espected. It can be useful to save this output to a text file or something siminlar.
 
