@@ -14,6 +14,16 @@ This is  short tutorial on how to run this application with the ROMS model. For 
 
 ## Preparing the input files
 
+### Grid
+
+### Initial conditions
+
+### Boundary condiitons
+
+### Tidal forcing
+
+### Bottom forcing
+
 ## Prerequisites ([wiki](https://www.myroms.org/wiki/Getting_Started))
 Software you will need to have installed:<br>
 - git<br>
@@ -126,8 +136,8 @@ This activates the passive tracer representing helium input from the vent.
 
 From line `112`and onwards you can set the advection algorithms and the lateral boundary condition types. They are set as in the setup by Xu and German, 2023. Some of the lateral boundary conditions require a NetCDF input file for the boundary condiitons while others (like Clo = Closed or Per = Periodic) don't. If you want to test your setup with only analytical boundary conditions you have to adjust these. See for comparison the UPWELLING test case and the [wiki](https://www.myroms.org/wiki/Boundary_Conditions).
 
-    NTIMES == 669600			!15sec×60min×24h×31d
-    DT == 4.0d0     			!4sec
+    NTIMES == 669600            !15sec×60min×24h×31d
+    DT == 4.0d0                 !4sec
     NDTFAST == 30
 
 Here the first line set the number of baroclinic timesteps and the second line the delta of the time step, so combined the total time the model will run. `NDTFAST` sets the number of barotropic time steps betweean each baroclinic time step.
@@ -180,7 +190,10 @@ If the build was succesfull you will find a ROMS executable in the application d
 
 using MPI, where `N`is the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file _aurora-0.h_ is not called directly but was already used in the build process.
 
-
 ## Output
+
+The model produces several output files. The most relevant one is the _roms_avg.nc_ which holds averaged values of all relevant physical quantities. For an inspection if it contains the espected data I would recommend to have ncview installed on the computing host, so you can check quickly if everything worked. For more detailed diagnostics the _roms_dia.nc_ file contains more data and more model parameters. The _roms_rst.nc_ file contains a full state of the model, and can be used to restart a model run from this point.
+
+While running the model prints a lot of useful information to the console (see [wiki](https://www.myroms.org/wiki/Standard_Output)), especially for debugging, if a run does not work as espected. It can be useful to save this output to a text file or something siminlar.
 
 
