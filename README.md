@@ -121,6 +121,10 @@ Here you have to specify the path to your _varinfo.yaml_ file (see above).
 
 This sets the grid dimensions of your application. They have to correspond to your grid input file where `Lm = dimension in your grid file - 2` and the same for Mm. The dimension of your grid file should ideally scale properly with the amount of MPI processes your application will run with.
 
+    NPT =  1             ! Number of inactive passive tracers
+
+This activates the passive tracer representing helium input from the vent.
+
 From line `112`and onwards you can set the advection algorithms and the lateral boundary condition types. They are set as in the setup by Xu and German, 2023. Some of the lateral boundary conditions require a NetCDF input file for the boundary condiitons while others (like Clo = Closed or Per = Periodic) don't. If you want to test your setup with only analytical boundary conditions you have to adjust these. See for comparison the UPWELLING test case and the [wiki](https://www.myroms.org/wiki/Boundary_Conditions).
 
     NTIMES == 669600			!15sec×60min×24h×31d
@@ -137,7 +141,34 @@ Here the first line set the number of baroclinic timesteps and the second line t
 
 These settings define how often (in number of timesteps) data is written to the output file, namely the RESTART file, the AVERAGE file and the DIAGNOSTICS file. Usually the AVG file is the one you would use to analyse the results.
 
+    Vtransform == 2             ! transformation equation
+    Vstretching == 4            ! stretching function
 
+    THETA_S == 0.0d0            ! surface stretching parameter
+    THETA_B == 3.0d0            ! bottom  stretching parameter
+    TCLINE == 20.0d0            ! critical depth (m)
+
+This are properties of your grid. They have to match the ones you used when generating your grid file.
+
+    TIME_REF =  20220726.0d0    ! yyyymmdd.dd
+
+This sets a reference time for your application. If a date is used here all other dates in the input files (for example tidal forcing) have to correspond to this reference date.
+
+     GRDNAME == ./Data/grid-M256L256.nc
+     ININAME == ./Data/grid-M256L256_ini_nemo_20220726T00_64layer.nc
+     ! ININAME == roms_ini.nc
+     ...
+     BRYNAME == ./Data/grid-M256L256_bry_nemo_20220726T00_20230701T00.nc
+     ...
+     TIDENAME == ./Data/grid-M256L256_tides.nc
+
+This sets the NetCDF files for the grid, the initial condiitons, the boundary condtions and the tidal forcing files. If the application should be run without them (e.g. for testing) set the parameter as in the option which is commented out.
+
+     NFFILES == 2                                                       ! number of unique forcing files
+     FRCNAME == ./Data/grid-M256L256_bhflux_130MW_20220726T00.nc \      ! forcing file 1, grid 1
+                ./Data/grid-M256L256_bpflux_20220726T00.nc
+
+This sets the forcing files for the bottom flux. It is seperated for the heatflux (bhflux) and the passive tracer flux (bpflux), so `NFFILES == 2`.
 
 ## Adjusting the setup
 ## Running
