@@ -52,7 +52,7 @@ This subdirectory contains matlab scripts which are used to create the input for
 - `get_initial_condition_from_GLORYS_jm.m` to interpolate ERA5 data to the ROMS grid for the initial conditions.<br>
 - `get_boundary_condition_GLORYS_jm.m` to interpolate ERA5 data to the ROMS grid for the boundary conditions.<br>
 - `otps2frc_wrapper.m` to create the forcing file for the tidal motion from the OTPS tidal model.<br>
-- `roms_metadata.m_` which should replace the same file in the _MATLAB_ tools in `/roms_matlab/netcdf/_roms_metadata.m`.
+- `roms_metadata.m` which should replace the same file in the _MATLAB_ tools in `/roms_matlab/netcdf/roms_metadata.m`.
 ### _Data_ (not present in the repository)
 This subdirectory should contain all the input and forcing files, so the grid file, etc. It is not part of the repository due to size limitations. For this application you should have the input files mentioned above.
 
