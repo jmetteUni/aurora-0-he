@@ -1,16 +1,37 @@
 # Aurora Hydrothermal Venting Application<br> for the Regional Ocean Modelling System (ROMS)
 
+# Table of contents
+- [Description](#Description)
+- [How to run the model](#How to run the model)
+    - [Prerequisites](#Prerequisites)
+    - [Preparing the input files](#Preparing the input files)
+    - [Setting up the model and directory structure](#Setting up the model and directory structure)
+    - [Running](#Running)
+    - [Output](#Output)
+- [References](#References)
+
 # Description
 This application is used for the simulation of the Aurora hydrothermal vent system in the Arctic Ocean. It is intended to be used with a modified version of the Regional Ocean Modelling System (ROMS) (documented [here](https://github.com/jmetteUni/roms/tree/bottom-tracer) and [OpenMPI](https://www.open-mpi.org/).
 
 The application uses a 256x256 horizontal grid with 30 vertical layers. Initial and boundary conditions are inferred from the ERA5 Interim reanalysis product. Surface fluxes are set to zero. Input of heat flux and a passive tracer, to simulate the hydrothermal vent is prescribed with forcing files. Tides are simulated based on tidal constituents from the Arctic Ocean Tidal Inverse Model. The simulation is run with a timestep of 4 sec for one month.
 
-It is heavily inspired and uses a similar approach as the setup in [Xu and German, 2023](http://dx.doi.org/10.3389/fmars.2023.1213470). G. Xu also helped extensively with this setup here. The simulation results were published in the master thesis [Plume Dispersal in the Arctic Ocean](https://doi.org/10.26092/elib/4441).
+It is heavily inspired and uses a similar approach as the setup in [^Xu and German, 2023]. G. Xu also helped extensively with this setup here. The simulation results were published in the master thesis [^Plume Dispersal in the Arctic Ocean].
 
 For general information on the ROMS model check the official [wiki](https://www.myroms.org/wiki/Documentation_Portal) (I linked some important articles directly below) and the [forum](https://www.myroms.org/forum/), but note that the wiki is outdated in some places. Most of the files have also some documentation as comments inside.
 
 # How to run the model
 This is  short tutorial on how to run this application with the ROMS model. For more in-depth documentation see the official ROMS documents. The application in it's structure follows roughly the test case [UPWELLING](https://www.myroms.org/wiki/UPWELLING_CASE). The test cases can be obtained [here](https://github.com/myroms/roms_test). It is recommended that you test your model with the UPWELLING test case first.
+
+## Prerequisites ([wiki](https://www.myroms.org/wiki/Getting_Started))
+Software you will need to have installed:<br>
+- git<br>
+- (an implementation of MPI for running on multiple cores, recommended)<br>
+- fortran90 or fortran95 compiler<br>
+- version 3.81 or higher<br>
+- cpp for C-processing<br>
+- Perl<br>
+- NetCDF<br>
+- the [ROMS MATLAB tools](https://github.com/myroms/roms_matlab/tree/main) to prepare the input files.
 
 ## Preparing the input files
 
@@ -23,17 +44,6 @@ This is  short tutorial on how to run this application with the ROMS model. For 
 ### Tidal forcing
 
 ### Bottom forcing
-
-## Prerequisites ([wiki](https://www.myroms.org/wiki/Getting_Started))
-Software you will need to have installed:<br>
-- git<br>
-- (an implementation of MPI for running on multiple cores, recommended)<br>
-- fortran90 or fortran95 compiler<br>
-- version 3.81 or higher<br>
-- cpp for C-processing<br>
-- Perl<br>
-- NetCDF<br>
-- the [ROMS MATLAB tools](https://github.com/myroms/roms_matlab/tree/main) to prepare the input files.
 
 ## Setting up the model and directory structure
 There are many different ways how to structure your source code and your application. This way here is not neccesarily the best, but the way it worked for me.
@@ -184,16 +194,25 @@ After installing the prerequisites and setting everything up as described above,
 
     ./build_roms.sh
 
+Optionally you can speed up the build using
+
+    ./build_roms.sh -j N
+
+where `N` is the number of processes.
+
 If the build was succesfull you will find a ROMS executable in the application directory. In this case it will be named _romsG_ but for example if you are building withouth MPI (or for other cases) it can be named slightly different. Then you can run the model with
 
     mpirun -np N romsG aurora-1.in
 
-using MPI, where `N`is the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file `aurora-0.h` is not called directly but was already used in the build process.
+using MPI, where `N`is again the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file `aurora-0.h` is not called directly but was already used in the build process.
 
 ## Output
 
 The model produces several output files. The most relevant one is the `roms_avg.nc` which holds averaged values of all relevant physical quantities. For an inspection if it contains the espected data I would recommend to have ncview installed on the computing host, so you can check quickly if everything worked. For more detailed diagnostics the `roms_dia.nc` file contains more data and more model parameters. The `roms_rst.nc` file contains a full state of the model, and can be used to restart a model run from this point.
 
-While running the model prints a lot of useful information to the console (see [wiki](https://www.myroms.org/wiki/Standard_Output)), especially for debugging, if a run does not work as espected. It can be useful to save this output to a text file or something siminlar.
+While running the model prints a lot of useful information to the console (see [wiki](https://www.myroms.org/wiki/Standard_Output)), especially for debugging, if a run does not work as espected. It can be useful to save this output to a text file or something similar. It is also helpful to run the model with something like the terminal manager [screen](https://www.gnu.org/software/screen/manual/screen.html), to not accidently stopping your model run.
 
+# References
 
+[^Xu and German, 2023]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: 10.3389/fmars.2023.1213470
+[^Plume Dispersal in the Arctic Ocean]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
