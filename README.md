@@ -2,15 +2,15 @@
 
 # Table of contents
 - [Description](#Description)
-- [How to run the model](#How to run the model)
+- [How to run the model](#How-to-run-the-model)
     - [Prerequisites](#Prerequisites)
-    - [Preparing the input files](#Preparing the input files)
-    - [Setting up the model and directory structure](#Setting up the model and directory structure)
+    - [Preparing the input files](#Preparing-the-input-files)
+    - [Setting up the model and directory structure](#Setting-up-the-model-and-directory-structure)
     - [Running](#Running)
     - [Output](#Output)
 - [References](#References)
 
-# Description
+# Description-
 This application is used for the simulation of the Aurora hydrothermal vent system in the Arctic Ocean. It is intended to be used with a modified version of the Regional Ocean Modelling System (ROMS) (documented [here](https://github.com/jmetteUni/roms/tree/bottom-tracer) and [OpenMPI](https://www.open-mpi.org/).
 
 The application uses a 256x256 horizontal grid with 30 vertical layers. Initial and boundary conditions are inferred from the ERA5 Interim reanalysis product. Surface fluxes are set to zero. Input of heat flux and a passive tracer, to simulate the hydrothermal vent is prescribed with forcing files. Tides are simulated based on tidal constituents from the Arctic Ocean Tidal Inverse Model. The simulation is run with a timestep of 4 sec for one month.
