@@ -15,7 +15,7 @@ This application is used for the simulation of the Aurora hydrothermal vent syst
 
 The application uses a 256x256 horizontal grid with 30 vertical layers. Initial and boundary conditions are inferred from the ERA5 Interim reanalysis product. Surface fluxes are set to zero. Input of heat flux and a passive tracer, to simulate the hydrothermal vent is prescribed with forcing files. Tides are simulated based on tidal constituents from the Arctic Ocean Tidal Inverse Model. The simulation is run with a timestep of 4 sec for one month.
 
-It is heavily inspired and uses a similar approach as the setup in [^Xu and German, 2023]. G. Xu also helped extensively with this setup here. The simulation results were published in the master thesis [^Plume Dispersal in the Arctic Ocean].
+It is heavily inspired and uses a similar approach as the setup in _Xu and German, 2023_[^1]. G. Xu also helped extensively with this setup here. The simulation results were published in the master thesis _Plume Dispersal in the Arctic Ocean_[^2].
 
 For general information on the ROMS model check the official [wiki](https://www.myroms.org/wiki/Documentation_Portal) (I linked some important articles directly below) and the [forum](https://www.myroms.org/forum/), but note that the wiki is outdated in some places. Most of the files have also some documentation as comments inside.
 
@@ -214,5 +214,5 @@ While running the model prints a lot of useful information to the console (see [
 
 # References
 
-[^Xu and German, 2023]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: 10.3389/fmars.2023.1213470
-[^Plume Dispersal in the Arctic Ocean]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
+[^1]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: 10.3389/fmars.2023.1213470
+[^2]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
