@@ -10,7 +10,7 @@
     - [Output](#Output)
 - [References](#References)
 
-# Description-
+# Description
 This application is used for the simulation of the Aurora hydrothermal vent system in the Arctic Ocean. It is intended to be used with a modified version of the Regional Ocean Modelling System (ROMS) (documented [here](https://github.com/jmetteUni/roms/tree/bottom-tracer) and [OpenMPI](https://www.open-mpi.org/).
 
 The application uses a 256x256 horizontal grid with 30 vertical layers. Initial and boundary conditions are inferred from the ERA5 Interim reanalysis product. Surface fluxes are set to zero. Input of heat flux and a passive tracer, to simulate the hydrothermal vent is prescribed with forcing files. Tides are simulated based on tidal constituents from the Arctic Ocean Tidal Inverse Model. The simulation is run with a timestep of 4 sec for one month.
@@ -33,7 +33,7 @@ Software you will need to have installed:<br>
 - NetCDF<br>
 - the [ROMS MATLAB tools](https://github.com/myroms/roms_matlab/tree/main) to prepare the input files.
 
-## Preparing the input files
+## Preparing the input files (WIP)
 
 ### Grid
 
@@ -214,5 +214,5 @@ While running the model prints a lot of useful information to the console (see [
 
 # References
 
-[^1]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: 10.3389/fmars.2023.1213470
+[^1]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: https://doi.org/10.3389/fmars.2023.1213470
 [^2]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
