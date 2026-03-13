@@ -36,6 +36,7 @@ Software you will need to have installed:<br>
 ## Preparing the input files (WIP)
 
 ### Grid
+There are various ways the a grid can be created. In this case it was done using the MATLAB toolbox _GridBuilder_[^5]. It is interactive and GUI based. The grid can be saved either as n editable `.mat` file or as NetCDF for the use in the ROMS setup. A detailed manual is also available on the website of [^5]. The `.mat` file is provided in the `matlab/` directory. The parameters used for the grid creation are documented and explained in [^1].
 
 ### Initial conditions
 
@@ -216,3 +217,8 @@ While running the model prints a lot of useful information to the console (see [
 
 [^1]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: https://doi.org/10.3389/fmars.2023.1213470
 [^2]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
+[^3]: Global Ocean Physics Reanalysis, E.U. Copernicus Marine Service Information (CMEMS). Marine Data Store (MDS). https://doi.org/10.48670/moi-00021
+
+[^4]: Warnke, Fynn; Unland, Ellen; Höppner, Laura; Dorschel, Boris; Dreutter, Simon; Schlindwein, Vera (2024): Multibeam bathymetry raw data (Atlas Hydrosweep DS 3 echo sounder entire dataset) of RV POLARSTERN during cruise PS137 \[dataset\]. PANGAEA, https://doi.org/10.1594/PANGAEA.963721
+
+[^5]: James, C. : GridBuilder v1.3.3. https://austides.com/downloads/. Version: March  2023
