@@ -32,7 +32,7 @@ NEMOfile = fullfile(NEMO_dir,NEMO_name);
 % Get NEMO time
 time_nemo=ncread(NEMOfile,'time');
 date_nemo=time_nemo/24+datenum(1950,1,1,0,0,0); % convert to Matlab datenum (the time axis in NEMO data starts from Jan 1, 1950)
-nemo_ntime = 14;  %number of timesteps in nemo file
+nemo_ntime = 14;  %number of timesteps in forcing file
 
 % set start and end dates of the simulation
 date_ref = date_nemo(1);
