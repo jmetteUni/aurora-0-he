@@ -202,7 +202,7 @@ where `N` is the number of processes.
 
 If the build was succesfull you will find a ROMS executable in the application directory. In this case it will be named _romsG_ but for example if you are building withouth MPI (or for other cases) it can be named slightly different. Then you can run the model with
 
-    mpirun -np N romsG aurora-1.in
+    mpirun -np N romsG aurora-0.in
 
 using MPI, where `N`is again the number of MPI processes, `romsG` the executable and `aurora-0.in` the input file. The header file `aurora-0.h` is not called directly but was already used in the build process.
 
