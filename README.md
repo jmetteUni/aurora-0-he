@@ -27,24 +27,38 @@ Software you will need to have installed:<br>
 - git<br>
 - (an implementation of MPI for running on multiple cores, recommended)<br>
 - fortran90 or fortran95 compiler<br>
-- version 3.81 or higher<br>
+- gnu make version 3.81 or higher<br>
 - cpp for C-processing<br>
 - Perl<br>
 - NetCDF<br>
-- the [ROMS MATLAB tools](https://github.com/myroms/roms_matlab/tree/main) to prepare the input files.
+- the ROMS MATLAB tools [^6] to prepare the input files.
 
-## Preparing the input files (WIP)
+## Preparing the input files
+
+The input files are prepared with MATLAB. Most of them rely on functions from the ROMS MATLAB collection [^6], so it should be added to the MATLAB paths.
 
 ### Grid
-There are various ways the a grid can be created. In this case it was done using the MATLAB toolbox _GridBuilder_[^5]. It is interactive and GUI based. The grid can be saved either as n editable `.mat` file or as NetCDF for the use in the ROMS setup. A detailed manual is also available on the website of [^5]. The `.mat` file is provided in the `matlab/` directory. The parameters used for the grid creation are documented and explained in [^1].
+There are various ways the a grid can be created. In this case it was done using the MATLAB toolbox _GridBuilder_[^5]. It is interactive and GUI based. The grid can be saved either as n editable `.mat` file or as NetCDF for the use in the ROMS setup. A detailed manual is also available on the website of [^5]. The `.mat` file is provided in the `matlab/` directory. The parameters used for the grid creation are documented and explained in [^1]. It uses mutlibeam bathymetry data of the area as a base which is imported in GridBuilder. The bathymetry data is based on Warnke et al., 2024 [^4].
 
 ### Bottom forcing
 
-The bottom forcing representing the vent is constructed in MATLAB using the `get_bottom_forcing_jm.m` script. It uses the grid NetCDF file as an input and outputs two NetCDF files, one for the heat flux and one for the passive tracer flux. The paths, the vent position, the start and end time and the amount of energy flux and tracer material (called "dye_amount") has to be specified at the top of the script. The energy flux and the dye amount is the constant input provided to the model domain per timestep. By default, the flux is only taking place in the grid cell, where the specified position is located. But the script also has options for including several vents at different positions. There is also code present for adding the volume flux, but this is not fully functional and was not used in this setup.
+The bottom forcing representing the vent is constructed in MATLAB using the `get_bottom_forcing_jm.m` script. It uses the grid NetCDF file as an input and outputs two NetCDF files, one for the heat flux and one for the passive tracer flux. The paths, the vent position, the start and end time and the amount of energy flux and tracer material (called "dye_amount") has to be specified at the top of the script. Additionally it needs the grid parameters used during the grid creation (see above). The energy flux and the dye amount is the constant input provided to the model domain per timestep.
+
+By default, the flux is only taking place in the grid cell, where the specified position is located. But the script also has options for including several vents at different positions. There is also code present for adding the volume flux, but this is not fully functional and was not used in this setup.
+
+In principal the time period of the forcing file can be longer then the model run lasts.
 
 ### Initial conditions
 
+The initial conditions prescribe the state inside the model domain at the start of the run. They are interpolated from the GLORYS reanalysis product [^3] onto the roms grid, so it also needs the grid as an input. The paths, the start time, the reference time and the grid parameters have to be provided at the top of the script. It is easiest to set the start and reference time equal but for other use cases it can be different. For more information on the reference time see the [wiki](https://www.myroms.org/wiki/time_ref).
+
 ### Boundary condiitons
+
+The boundary conditions prescribe the state at the margins of the domain during the run. How they are effecting the domain is specified by the boundary condition options in the `aurora.in` file (see below and in the [wiki](https://www.myroms.org/wiki/Boundary_Conditions)) They are interpolated from the GLORYS reanalysis product [^3] to the outer boundaries of the ROMS grid, so it also needs the grid as an input. The paths, the start and end time and the grid parameters have to be provided at the top of the script.
+
+The variabel `nemo_time` sets the amount of timestemps in the output forcing file.
+> [!CAUTION]<br>
+> In the given script `nemo_time = 14` also equals the number of timesteps in the reanalysis product. This way interpolation of the reanalysis data is avoided, but due to the model run lasting for only one month but the 14 time steps are given for one year of reanalysis data, this results in only two boundary states during the model run. It is recommended, that the script should be modified to use reanalysis data with an appropriate time resoultion corresponding to planned model run.
 
 ### Tidal forcing
 
@@ -149,7 +163,7 @@ This sets the grid dimensions of your application. They have to correspond to yo
 
 This activates the passive tracer representing helium input from the vent.
 
-From line `112`and onwards you can set the advection algorithms and the lateral boundary condition types. They are set as in the setup by Xu and German, 2023. Some of the lateral boundary conditions require a NetCDF input file for the boundary condiitons while others (like Clo = Closed or Per = Periodic) don't. If you want to test your setup with only analytical boundary conditions you have to adjust these. See for comparison the UPWELLING test case and the [wiki](https://www.myroms.org/wiki/Boundary_Conditions).
+From line `112` and onwards you can set the advection algorithms and the lateral boundary condition types. They are set as in the setup by Xu and German, 2023. Some of the lateral boundary conditions require a NetCDF input file for the boundary condiitons while others (like Clo = Closed or Per = Periodic) don't. If you want to test your setup with only analytical boundary conditions you have to adjust these. See for comparison the UPWELLING test case and the [wiki](https://www.myroms.org/wiki/Boundary_Conditions).
 
     NTIMES == 669600            !15sec×60min×24h×31d
     DT == 4.0d0                 !4sec
@@ -222,7 +236,6 @@ While running the model prints a lot of useful information to the console (see [
 [^1]: Xu G and German CR (2023) Dispersion of deep-sea hydrothermal plumes at the Endeavour Segment of the Juan de Fuca Ridge: a multiscale numerical study. Front. Mar. Sci. 10:1213470. doi: https://doi.org/10.3389/fmars.2023.1213470
 [^2]: Mette, Jonathan. “Plume Dispersal in the Arctic Ocean - the Aurora Site at Gakkel Ridge,” May 16, 2025. https://media.suub.uni-bremen.de/handle/elib/22668.
 [^3]: Global Ocean Physics Reanalysis, E.U. Copernicus Marine Service Information (CMEMS). Marine Data Store (MDS). https://doi.org/10.48670/moi-00021
-
 [^4]: Warnke, Fynn; Unland, Ellen; Höppner, Laura; Dorschel, Boris; Dreutter, Simon; Schlindwein, Vera (2024): Multibeam bathymetry raw data (Atlas Hydrosweep DS 3 echo sounder entire dataset) of RV POLARSTERN during cruise PS137 \[dataset\]. PANGAEA, https://doi.org/10.1594/PANGAEA.963721
-
 [^5]: James, C. : GridBuilder v1.3.3. https://austides.com/downloads/. Version: March  2023
+[^6]: Arango, H. G.: ROMS Matlab Processing Scripts. https://github.com/myroms/roms_matlab. Version: Oct. 2023
