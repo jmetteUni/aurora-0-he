@@ -38,13 +38,17 @@ Software you will need to have installed:<br>
 ### Grid
 There are various ways the a grid can be created. In this case it was done using the MATLAB toolbox _GridBuilder_[^5]. It is interactive and GUI based. The grid can be saved either as n editable `.mat` file or as NetCDF for the use in the ROMS setup. A detailed manual is also available on the website of [^5]. The `.mat` file is provided in the `matlab/` directory. The parameters used for the grid creation are documented and explained in [^1].
 
+### Bottom forcing
+
+The bottom forcing representing the vent is constructed in MATLAB using the `get_bottom_forcing_jm.m` script. It uses the grid NetCDF file as an input and outputs two NetCDF files, one for the heat flux and one for the passive tracer flux. The paths, the vent position, the start and end time and the amount of energy flux and tracer material (called "dye_amount") has to be specified at the top of the script. The energy flux and the dye amount is the constant input provided to the model domain per timestep. By default, the flux is only taking place in the grid cell, where the specified position is located. But the script also has options for including several vents at different positions. There is also code present for adding the volume flux, but this is not fully functional and was not used in this setup.
+
 ### Initial conditions
 
 ### Boundary condiitons
 
 ### Tidal forcing
 
-### Bottom forcing
+
 
 ## Setting up the model and directory structure
 There are many different ways how to structure your source code and your application. This way here is not neccesarily the best, but the way it worked for me.
