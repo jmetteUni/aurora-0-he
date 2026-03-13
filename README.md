@@ -46,7 +46,7 @@ The bottom forcing representing the vent is constructed in MATLAB using the `get
 
 By default, the flux is only taking place in the grid cell, where the specified position is located. But the script also has options for including several vents at different positions. There is also code present for adding the volume flux, but this is not fully functional and was not used in this setup.
 
-In principal the time period of the forcing file can be longer then the model run lasts.
+In principal the time period of the forcing file can be longer (here: one year) then the model run lasts (here: one month).
 
 ### Initial conditions
 
@@ -60,9 +60,11 @@ The variabel `nemo_time` sets the amount of timestemps in the output forcing fil
 > [!CAUTION]<br>
 > In the given script `nemo_time = 14` also equals the number of timesteps in the reanalysis product. This way interpolation of the reanalysis data is avoided, but due to the model run lasting for only one month but the 14 time steps are given for one year of reanalysis data, this results in only two boundary states during the model run. It is recommended, that the script should be modified to use reanalysis data with an appropriate time resoultion corresponding to planned model run.
 
+In principal the time period of the forcing file can be longer (here: one year) then the model run lasts (here: one month).
+
 ### Tidal forcing
 
-
+This provides tidal forcing for the domain during the model run. It is enacted as changes in sea surface elevation. The forcing file is created with a wrapper script which needs the grid file as an input, the TMD MATLAB toolbox and the OSU tidal prediction software. The process is explained in detail [here](https://www.myroms.org/wiki/Tidal_Forcing) in the ROMS wiki.
 
 ## Setting up the model and directory structure
 There are many different ways how to structure your source code and your application. This way here is not neccesarily the best, but the way it worked for me.
